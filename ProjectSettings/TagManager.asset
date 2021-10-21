@@ -8,6 +8,11 @@ TagManager:
   - Ball
   - Brick
   - Wall
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick
   layers:
   - Default
   - TransparentFX
