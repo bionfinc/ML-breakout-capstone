@@ -6,11 +6,13 @@ public class Collidable : MonoBehaviour
 {
 	public Rigidbody2D rigidBody;
 	public bool hasBeenHit;
+	public float thrust;
 
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
 		hasBeenHit = false;
+		
 	}
 
 	void Update()
@@ -20,6 +22,7 @@ public class Collidable : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
+		
 		if (coll.gameObject.tag == "Ball")
 		{
 			if (!hasBeenHit)
@@ -34,4 +37,7 @@ public class Collidable : MonoBehaviour
 			}
 		}
 	}
+
+
+
 }

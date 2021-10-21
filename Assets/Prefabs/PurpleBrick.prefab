@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7003777094877728540}
   m_Layer: 10
   m_Name: PurpleBrick
-  m_TagString: Brick
+  m_TagString: PurpleBrick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
   hasBeenHit: 0
+  bricks:
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick
 --- !u!61 &7003777094877728543
 BoxCollider2D:
   m_ObjectHideFlags: 0

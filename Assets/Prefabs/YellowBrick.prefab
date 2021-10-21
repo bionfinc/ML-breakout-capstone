@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6967816244003443259}
   m_Layer: 10
   m_Name: YellowBrick
-  m_TagString: Brick
+  m_TagString: YellowBrick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,3 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
   hasBeenHit: 0
+  bricks:
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1355876046622509228}
   m_Layer: 10
   m_Name: GreenBrick
-  m_TagString: Brick
+  m_TagString: GreenBrick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
   hasBeenHit: 0
+  bricks:
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick
 --- !u!50 &1355876046622509230
 Rigidbody2D:
   serializedVersion: 4
@@ -161,3 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 0}
   hasBeenHit: 0
+  bricks:
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick

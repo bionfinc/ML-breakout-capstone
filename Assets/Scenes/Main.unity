@@ -1372,7 +1372,7 @@ PrefabInstance:
     - target: {fileID: 1355876046622509224, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
       propertyPath: m_TagString
-      value: Brick
+      value: GreenBrick
       objectReference: {fileID: 0}
     - target: {fileID: 1355876046622509227, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
@@ -1673,7 +1673,7 @@ GameObject:
   - component: {fileID: 413815412}
   m_Layer: 0
   m_Name: GreenBricks
-  m_TagString: Untagged
+  m_TagString: GreenBrick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5113,7 +5113,7 @@ PrefabInstance:
     - target: {fileID: 1355876046622509224, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
       propertyPath: m_TagString
-      value: Brick
+      value: GreenBrick
       objectReference: {fileID: 0}
     - target: {fileID: 1355876046622509227, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
@@ -6607,6 +6607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   rigidBody: {fileID: 0}
+  previousVelocity: {x: 0, y: 0, z: 0}
 --- !u!1001 &1935598833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6841,7 +6842,7 @@ PrefabInstance:
     - target: {fileID: 1355876046622509224, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
       propertyPath: m_TagString
-      value: Brick
+      value: GreenBrick
       objectReference: {fileID: 0}
     - target: {fileID: 1355876046622509227, guid: 43298d523e28c96479dd12e8d2359816,
         type: 3}
