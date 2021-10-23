@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Paddle
+  - Ball
+  - Brick
+  - Wall
+  - GreenBrick
+  - PurpleBrick
+  - BlueBrick
+  - YellowBrick
+  - RedBrick
   layers:
   - Default
   - TransparentFX
@@ -15,7 +24,7 @@ TagManager:
   - 
   - Blocking
   - Actor
-  - 
+  - Bricks
   - 
   - 
   - 
@@ -41,6 +50,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TopDisplay
+    uniqueID: 211143483
+    locked: 0
   - name: Actor
     uniqueID: 1279523733
+    locked: 0
+  - name: Bricks
+    uniqueID: 2651131141
     locked: 0
