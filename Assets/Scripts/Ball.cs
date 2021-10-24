@@ -36,7 +36,6 @@ public class Ball : MonoBehaviour
         {
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
-            inPlay = true;
             LaunchBall();
         }
         previousVelocity = rigidBody.velocity;
@@ -44,6 +43,7 @@ public class Ball : MonoBehaviour
 
     private void LaunchBall()
     {
+        inPlay = true;
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
         rigidBody.velocity = new Vector2(1 * speed, -1 * speed);
     }
