@@ -11,24 +11,28 @@ public class Ball : MonoBehaviour {
 	public Rigidbody2D rigidBody;
 	public Brick brickReference;
 	public Vector3 previousVelocity;
-
+	bool hasStarted = false;
 
 	void Start()
 	{
 		rigidBody = GetComponent<Rigidbody2D>();
 		brickReference = new Brick();
-		LaunchBall();
 	}
 
 	void Update()
 	{
+		if (hasStarted == false) {
+			LaunchBall();
+		}
 		previousVelocity = rigidBody.velocity;
 	}
 
 	private void LaunchBall()
 	{
-		float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-		rigidBody.velocity = new Vector2(1 * speed, -1 * speed);
+		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) {
+			float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+			rigidBody.velocity = new Vector2(1 * speed, -1 * speed);
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
