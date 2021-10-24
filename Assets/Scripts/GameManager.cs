@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     public void incrementPoints(int changeInScore)
     {
         score += changeInScore;
-        Debug.Log(("changing score", score));
         scoresText.GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
     }
 
