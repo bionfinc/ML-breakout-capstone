@@ -6871,11 +6871,9 @@ MonoBehaviour:
   speed: 3
   rigidBody: {fileID: 0}
   previousVelocity: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
   inPlay: 0
   randomXCoord: 0
   randomYCoord: 0
-=======
 --- !u!114 &1858501107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6945,7 +6943,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 75f2f06445236b681dcda40e3a672e98f478fd22
 --- !u!1001 &1935598833
 PrefabInstance:
   m_ObjectHideFlags: 0
