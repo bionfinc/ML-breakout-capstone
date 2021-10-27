@@ -37,12 +37,20 @@ public class Paddle : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.mousePosition != lastMousePosition) {
+		if (Pause.active)
+			return;
+
+
+		if (Input.mousePosition != lastMousePosition)
+		{
 			lastMousePosition = Input.mousePosition;
 			WhenMouseIsMoving();
-		} else {
+		}
+		else
+		{
 			WhenMouseIsNotMoving();
 		}
+	
 	}
 
 }

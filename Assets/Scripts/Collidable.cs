@@ -30,7 +30,7 @@ public class Collidable : MonoBehaviour
                 hasBeenHit = true;
 
                 // update player's points
-                GameManager.instance.incrementPoints(1);
+                GameManager.instance.IncrementPoints(1);
 
                 // remove the brick from the game
                 Destroy(gameObject);

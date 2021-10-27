@@ -13,6 +13,9 @@ TagManager:
   - BlueBrick
   - YellowBrick
   - RedBrick
+  - Bottom
+  - ScoresText
+  - LivesText
   layers:
   - Default
   - TransparentFX
@@ -58,4 +61,7 @@ TagManager:
     locked: 0
   - name: Bricks
     uniqueID: 2651131141
+    locked: 0
+  - name: Interface
+    uniqueID: 2796800767
     locked: 0
