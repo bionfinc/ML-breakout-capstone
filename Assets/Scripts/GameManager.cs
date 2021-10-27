@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         livesText.GetComponent<UnityEngine.UI.Text>().text = "Lives: " + lives.ToString();
 
         // check if player has lost all their lives
-        if (lives < 0)
+        if (lives < 1)
             PlayerDeath();
     }
 
