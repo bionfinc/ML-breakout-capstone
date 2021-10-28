@@ -9,17 +9,17 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Paddle paddle;
     public int score;
-    public UnityEngine.UI.Text scoresText;
-    public UnityEngine.UI.Text livesText;
+    public Text scoresText;
+    public Text livesText;
     public int lives;
 
 
     private void Start()
     {
         lives = 3;
-        scoresText = GameObject.FindGameObjectWithTag("ScoresText").GetComponent<UnityEngine.UI.Text>();
+        // scoresText = GameObject.FindGameObjectWithTag("ScoresText").GetComponent<UnityEngine.UI.Text>();
         scoresText.text = "Score: " + score.ToString();
-        livesText = GameObject.FindGameObjectWithTag("LivesText").GetComponent<UnityEngine.UI.Text>();
+        // livesText = GameObject.FindGameObjectWithTag("LivesText").GetComponent<UnityEngine.UI.Text>();
         livesText.text = "Lives: " + lives.ToString();
 
     }
@@ -41,21 +41,23 @@ public class GameManager : MonoBehaviour
     public void IncrementPoints(int changeInScore)
     {
         score += changeInScore;
-        scoresText.GetComponent<UnityEngine.UI.Text>().text = "Score: " + score.ToString();
+        scoresText.text = "Score: " + score.ToString();
 
         // check if player has won the game
         if (score == 55)
             PlayerWin();
+            // call next level or new scene
     }
 
     public void DecrementLives()
     {
         lives -= 1;
-        livesText.GetComponent<UnityEngine.UI.Text>().text = "Lives: " + lives.ToString();
+        livesText.text = "Lives: " + lives.ToString();
 
         // check if player has lost all their lives
         if (lives < 1)
             PlayerDeath();
+            // call new scene
     }
 
     public void UpdateDisplay()
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void DestroyCurrentGame()
-	{
+    {
         Destroy(gameObject);
     }
 
