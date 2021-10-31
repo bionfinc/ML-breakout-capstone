@@ -14,21 +14,21 @@ public class Ball : MonoBehaviour
     public bool inPlay;
     public float randomXCoord;
     public float randomYCoord;
+    public GameManager gm;
 
     void Start()
     {
+        Renderer visual = GetComponent<Renderer>();
+
         rigidBody = GetComponent<Rigidbody2D>();
         brickReference = new Brick();
+        visual.enabled = !visual.enabled;
         LaunchBall();
     }
 
     void Update()
     {
-        if (!inPlay)
-        {
-
-        }
-        if (Input.GetButtonDown("Jump") && !inPlay)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !inPlay)
         {
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
@@ -39,9 +39,15 @@ public class Ball : MonoBehaviour
 
     private void LaunchBall()
     {
-        inPlay = true;
-        float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        rigidBody.velocity = new Vector2(1 * speed, -1 * speed);
+        Renderer visual = GetComponent<Renderer>();
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
+            inPlay = true;
+            float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -300);      
+            visual.enabled = true;
+            rigidBody.AddForce(direction);
+        }
     }
 
     private Tuple<float, float> generateBallPosition()
@@ -50,7 +56,6 @@ public class Ball : MonoBehaviour
         randomXCoord = UnityEngine.Random.Range(-4f, 4f);
         // y coordiante = -.25 to -1
         randomYCoord = UnityEngine.Random.Range(-.25f, -1f);
-        Debug.Log((randomXCoord, randomYCoord));
         return new Tuple<float, float>(randomXCoord, randomYCoord);
     }
 
@@ -58,8 +63,8 @@ public class Ball : MonoBehaviour
     {
         // check if ball was lost
         if (other.CompareTag("Bottom"))
-        {   // decerement lives and reset episode
-            Debug.Log("Ball lost");
+        {   // decerement lives
+            gm.DecrementLives();
             rigidBody.velocity = Vector2.zero;
             inPlay = false;
         }
