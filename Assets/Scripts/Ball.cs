@@ -6,9 +6,8 @@ using System.Linq;
 
 
 public class Ball : MonoBehaviour
-{
-
-    public float speed = 7;
+{ 
+    public float speed = 10;
     public Rigidbody2D rigidBody;
     public Brick brickReference;
     public Vector3 previousVelocity;
