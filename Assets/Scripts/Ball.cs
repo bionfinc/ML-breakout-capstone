@@ -15,6 +15,7 @@ public class Ball : MonoBehaviour
     public bool inPlay;
     public float randomXCoord;
     public float randomYCoord;
+    public GameManager gm;
 
     void Start()
     {
@@ -51,7 +52,6 @@ public class Ball : MonoBehaviour
         randomXCoord = UnityEngine.Random.Range(-4f, 4f);
         // y coordiante = -.25 to -1
         randomYCoord = UnityEngine.Random.Range(-.25f, -1f);
-        Debug.Log((randomXCoord, randomYCoord));
         return new Tuple<float, float>(randomXCoord, randomYCoord);
     }
 
@@ -59,8 +59,8 @@ public class Ball : MonoBehaviour
     {
         // check if ball was lost
         if (other.CompareTag("Bottom"))
-        {   // decerement lives and reset episode
-            Debug.Log("Ball lost");
+        {   // decerement lives
+            gm.DecrementLives();
             rigidBody.velocity = Vector2.zero;
             inPlay = false;
         }
