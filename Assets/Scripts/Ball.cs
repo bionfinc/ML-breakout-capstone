@@ -52,10 +52,8 @@ public class Ball : MonoBehaviour
 
     private Tuple<float, float> generateBallPosition()
     {
-        // x coordinate -4 to 4
-        randomXCoord = UnityEngine.Random.Range(-4f, 4f);
-        // y coordiante = -.25 to -1
-        randomYCoord = UnityEngine.Random.Range(-.25f, -1f);
+        randomXCoord = UnityEngine.Random.Range(1f, 9f);
+        randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
         return new Tuple<float, float>(randomXCoord, randomYCoord);
     }
 
@@ -63,10 +61,12 @@ public class Ball : MonoBehaviour
     {
         // check if ball was lost
         if (other.CompareTag("Bottom"))
-        {   // decerement lives
+        {   // decrement lives
+            Renderer visual = GetComponent<Renderer>();
             gm.DecrementLives();
             rigidBody.velocity = Vector2.zero;
             inPlay = false;
+            visual.enabled = !visual.enabled;
         }
     }
 
