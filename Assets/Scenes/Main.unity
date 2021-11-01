@@ -4808,8 +4808,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  rightScreenEdge: 0
-  leftScreenEdge: 10
+  rightScreenEdge: 10
+  leftScreenEdge: 0
 --- !u!60 &1105562684
 PolygonCollider2D:
   m_ObjectHideFlags: 0
