@@ -31,19 +31,10 @@ public class Paddle : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         Vector3 moveDelta = new Vector3(x, 0, 0);
         transform.Translate(moveDelta.x * Time.deltaTime * speed, 0, 0);
-
-        if (transform.position.x < leftScreenEdge)
-            transform.position = new Vector3(leftScreenEdge, transform.position.y, 0);
-        if (transform.position.x > rightScreenEdge)
-            transform.position = new Vector3(rightScreenEdge, transform.position.y, 0);
     }
 
     void Update()
     {
-        // if (Pause.active)
-        // 	return;
-
-
         if (Input.mousePosition != lastMousePosition)
         {
             lastMousePosition = Input.mousePosition;
@@ -53,6 +44,10 @@ public class Paddle : MonoBehaviour
         {
             WhenMouseIsNotMoving();
         }
+        if (transform.position.x < leftScreenEdge)
+            transform.position = new Vector3(leftScreenEdge, transform.position.y, 0);
+        if (transform.position.x > rightScreenEdge)
+            transform.position = new Vector3(rightScreenEdge, transform.position.y, 0);
 
     }
 
