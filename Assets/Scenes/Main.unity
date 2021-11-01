@@ -4807,9 +4807,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d955cf7605c4ab941b5f3845eaf25a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 15.75
   rightScreenEdge: 10
-  leftScreenEdge: 0
+  leftScreenEdge: 0.55
 --- !u!60 &1105562684
 PolygonCollider2D:
   m_ObjectHideFlags: 0

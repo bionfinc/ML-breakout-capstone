@@ -40,8 +40,9 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        // if (Pause.active)
-        // 	return;
+        // need this for the pause menu
+         if (Pause.active)
+         	return;
 
 
         if (Input.mousePosition != lastMousePosition)
