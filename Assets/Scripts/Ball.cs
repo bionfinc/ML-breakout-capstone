@@ -44,7 +44,7 @@ public class Ball : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             inPlay = true;
             float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -300);      
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -200);      
             visual.enabled = true;
             rigidBody.AddForce(direction);
         }
