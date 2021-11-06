@@ -16,6 +16,8 @@ TagManager:
   - Bottom
   - ScoresText
   - LivesText
+  - Goal
+  - Non-goal
   layers:
   - Default
   - TransparentFX
