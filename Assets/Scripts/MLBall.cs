@@ -1,25 +1,24 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
 
-public class Ball : MonoBehaviour
-{ 
-    public float speed = 10;
+public class MLBall : MonoBehaviour
+{
+    public float speed = 1f;
     public Rigidbody2D rigidBody;
     public Brick brickReference;
     public Vector3 previousVelocity;
     public bool inPlay;
     public float randomXCoord;
     public float randomYCoord;
-    public GameManager gm;
+    public MLGameManager gm;
 
     void Start()
     {
         Renderer visual = GetComponent<Renderer>();
-
         rigidBody = GetComponent<Rigidbody2D>();
         brickReference = new Brick();
         visual.enabled = !visual.enabled;
@@ -28,7 +27,7 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !inPlay)
+        if (!inPlay)
         {
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
@@ -40,14 +39,11 @@ public class Ball : MonoBehaviour
     private void LaunchBall()
     {
         Renderer visual = GetComponent<Renderer>();
-
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            inPlay = true;
-            float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -200);         
-            visual.enabled = true;                                                                    
-            rigidBody.AddForce(direction);
-        }
+        inPlay = true;
+        float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-10, 10), -10);
+        visual.enabled = true;
+        rigidBody.AddForce(direction);
     }
 
     private Tuple<float, float> generateBallPosition()

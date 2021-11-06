@@ -16,7 +16,6 @@ public class OnePlayerButton : MonoBehaviour
 
 	void TaskOnClick()
 	{
-		Debug.Log("One Player Button Clicked");
 		SceneManager.LoadScene("Main");
 	}
 }
