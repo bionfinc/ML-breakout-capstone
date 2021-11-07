@@ -18,7 +18,7 @@ public class MLCollidable : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Ball")
+        if (coll.gameObject.tag == "MLBall")
         {
             if (!hasBeenHit)
             {

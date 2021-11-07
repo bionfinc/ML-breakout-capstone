@@ -41,7 +41,7 @@ public class MLBall : MonoBehaviour
         Renderer visual = GetComponent<Renderer>();
         inPlay = true;
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-10, 10), -10);
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -12);
         visual.enabled = true;
         rigidBody.AddForce(direction);
     }
@@ -93,7 +93,7 @@ public class MLBall : MonoBehaviour
         else
         {
             // increase the ball's speed by the layer's index multipled by 0.5
-            rigidBody.velocity = direction * (speed + (colorIndex * 0.5f));
+            rigidBody.velocity = direction * (speed + (colorIndex * 0.05f));
             brickReference.layerReached[colorIndex] = true;
         }
     }

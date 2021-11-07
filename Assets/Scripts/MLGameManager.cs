@@ -18,7 +18,7 @@ public class MLGameManager : MonoBehaviour
 
     private void Start()
     {
-        lives = 5000;
+        lives = 100000;
         scoresText.text = "Score: " + score.ToString();
         livesText.text = "Lives: " + lives.ToString();
 
@@ -26,7 +26,6 @@ public class MLGameManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (MLGameManager.instance != null)
         {
             Destroy(gameObject);
@@ -42,6 +41,7 @@ public class MLGameManager : MonoBehaviour
     {
         score += changeInScore;
         scoresText.text = "Score: " + score.ToString();
+        bricksBroken++;
 
         // check if agent has won the game
         if (score == 55)

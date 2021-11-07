@@ -58,9 +58,9 @@ public class MLAgent : Agent
 		transform.position += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
 	}
 
-	private void OnTriggerEnter2D(Collider2D coll)
+	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if (coll.TryGetComponent<Ball>(out Ball ball))
+		if (coll.gameObject.tag == "MLBall")
 		{
 			Debug.Log("+1 reward for hitting ball");
 			SetReward(+1f);
