@@ -18,6 +18,7 @@ TagManager:
   - LivesText
   - Goal
   - Non-goal
+  - MLBall
   layers:
   - Default
   - TransparentFX
