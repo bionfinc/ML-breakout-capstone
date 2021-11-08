@@ -16,6 +16,6 @@ public class Exit : MonoBehaviour
 	void TaskOnClick()
 	{
 		Debug.Log("Exit Button Clicked");
-		Application.Quit(); // this doesn't work inside Editor
+		//Application.Quit(); this crashes webGL
 	}
 }
