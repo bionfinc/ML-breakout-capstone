@@ -4480,6 +4480,7 @@ MonoBehaviour:
   speed: 15
   rightScreenEdge: 16
   leftScreenEdge: 0
+--- !u!60 &1105562684
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
