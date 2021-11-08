@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collidable : MonoBehaviour
+public class MLCollidable : MonoBehaviour
 {
     public bool hasBeenHit;
 
@@ -18,14 +18,14 @@ public class Collidable : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Ball")
+        if (coll.gameObject.tag == "MLBall")
         {
             if (!hasBeenHit)
             {
                 hasBeenHit = true;
 
                 // update player's points
-                GameManager.instance.IncrementPoints(1);
+                MLGameManager.instance.IncrementPoints(1);
 
                 // remove the brick from the game
                 Destroy(gameObject);
