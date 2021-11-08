@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         DestroyCurrentGame();
         // change scene to win scene
-        // SceneManager.LoadScene("WinScene");
+        SceneManager.LoadScene("WinScreen");
     }
 
     public void PlayerDeath()
