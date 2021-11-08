@@ -35,6 +35,10 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
+        // for pausing
+        if (Pause.active)
+            return;
+
         if (Input.mousePosition != lastMousePosition)
         {
             lastMousePosition = Input.mousePosition;
@@ -47,8 +51,7 @@ public class Paddle : MonoBehaviour
         if (transform.position.x < leftScreenEdge)
             transform.position = new Vector3(leftScreenEdge, transform.position.y, 0);
         if (transform.position.x > rightScreenEdge)
-            transform.position = new Vector3(rightScreenEdge, transform.position.y, 0);
-
+            transform.position = new Vector3(rightScreenEdge, transform.position.y, 0); 
     }
 
 }
