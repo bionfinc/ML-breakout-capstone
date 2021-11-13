@@ -7,12 +7,28 @@ using Unity.MLAgents.Sensors;
 
 public class MLAgent : Agent
 {
-	[SerializeField] private Transform targetTransform;
+	public static MLAgent instance;
+	public GameObject target;
 	float moveSpeed = 5f;
 	public float rightScreenEdge;
 	public float leftScreenEdge;
 	public int previousBricksBroken = 0;
 	public int previousLives = 5000;
+
+	// this will be passed as an observation to the ML Agent
+	// 1's signify that the brick hasn't been hit, 0's mean it has
+	float[,] hitBricks = new float[,] {
+		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
+		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
+		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
+		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
+		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
+	};
+
+	void Awake()
+	{
+		instance = this;
+	}
 
 	void Update()
 	{
@@ -43,18 +59,47 @@ public class MLAgent : Agent
 	public override void OnEpisodeBegin()
 	{
 		transform.localPosition = new Vector3(1.7853284f, 0.6854997f, 0f);
-		targetTransform.localPosition = new Vector3(Random.Range(1f, 9f), Random.Range(3.25f, 3.75f), 0);
+		target.transform.localPosition = new Vector3(Random.Range(1f, 9f), Random.Range(3.25f, 3.75f), 0);
 	}
 
 	public override void CollectObservations(VectorSensor sensor)
 	{
-		sensor.AddObservation(transform.position);
-		sensor.AddObservation(targetTransform.position);
+		sensor.AddObservation(transform.localPosition);
+		sensor.AddObservation(target.transform.localPosition);
+
+		// test: add observation for distance 
+		sensor.AddObservation(Vector3.Distance(this.transform.localPosition, target.transform.localPosition));
+
+		// test: add observation for ball's direction
+		sensor.AddObservation((target.transform.localPosition - this.transform.localPosition).normalized);
+
+		// add observation for broken bricks
+		for (int row = 0; row < 5; row++)
+			for (int col = 0; col < 11; col++)
+				sensor.AddObservation(hitBricks[row, col]);
+
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
 	{
-		float moveX = actions.ContinuousActions[0];
+		// here we're getting which one of the 3 actions was sent to the action buffer
+		// then changing the x position depending on what the action was
+		int moveX = 0;
+		int action = actions.DiscreteActions[0];
+
+		switch (action)
+		{
+			case 0:
+				moveX = -1;
+				break;
+			case 1:
+				moveX = 0;
+				break;
+			case 2:
+				moveX = 1;
+				break;
+		}
+
 		transform.position += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
 	}
 
@@ -62,7 +107,7 @@ public class MLAgent : Agent
 	{
 		if (coll.gameObject.tag == "MLBall")
 		{
-			Debug.Log("+1 reward for hitting ball");
+			//Debug.Log("+1 reward for hitting ball");
 			SetReward(+1f);
 			//EndEpisode();
 		}
@@ -72,5 +117,10 @@ public class MLAgent : Agent
 	{
 		ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
 		continuousActions[0] = Input.GetAxisRaw("Horizontal");
+	}
+
+	public void UpdateCoords(int x, int y)
+	{
+		hitBricks[x, y] = 0;
 	}
 }
