@@ -14,6 +14,8 @@ public class MLAgent : Agent
 	public float leftScreenEdge;
 	public int previousBricksBroken = 0;
 	public int previousLives = 5000;
+	Vector3 previousBallLocation;
+	Vector3 changeInBallLocation;
 
 	// this will be passed as an observation to the ML Agent
 	// 1's signify that the brick hasn't been hit, 0's mean it has
@@ -64,14 +66,17 @@ public class MLAgent : Agent
 
 	public override void CollectObservations(VectorSensor sensor)
 	{
+		changeInBallLocation = target.transform.localPosition - previousBallLocation;
+		previousBallLocation = target.transform.localPosition;
+
 		sensor.AddObservation(transform.localPosition);
 		sensor.AddObservation(target.transform.localPosition);
 
-		// test: add observation for distance 
+		// test: add observation for distance
 		sensor.AddObservation(Vector3.Distance(this.transform.localPosition, target.transform.localPosition));
 
 		// test: add observation for ball's direction
-		sensor.AddObservation((target.transform.localPosition - this.transform.localPosition).normalized);
+		sensor.AddObservation(changeInBallLocation);
 
 		// add observation for broken bricks
 		for (int row = 0; row < 5; row++)
@@ -107,7 +112,7 @@ public class MLAgent : Agent
 	{
 		if (coll.gameObject.tag == "MLBall")
 		{
-			//Debug.Log("+1 reward for hitting ball");
+			Debug.Log("+1 reward for hitting ball");
 			SetReward(+1f);
 			//EndEpisode();
 		}
