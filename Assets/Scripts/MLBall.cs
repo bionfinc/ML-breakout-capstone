@@ -59,7 +59,7 @@ public class MLBall : MonoBehaviour
 
     private Tuple<float, float> generateBallPosition()
     {
-        randomXCoord = UnityEngine.Random.Range(5f, 10f);
+        randomXCoord = UnityEngine.Random.Range(2f, 9f);
         randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
         return new Tuple<float, float>(randomXCoord, randomYCoord);
     }
