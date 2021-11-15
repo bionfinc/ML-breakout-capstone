@@ -6,7 +6,7 @@ using System.Linq;
 
 
 public class Ball : MonoBehaviour
-{ 
+{
     public float speed = 10;
     public Rigidbody2D rigidBody;
     public Brick brickReference;
@@ -33,6 +33,17 @@ public class Ball : MonoBehaviour
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
             LaunchBall();
+        } else {
+            int yValue = 5;
+            if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5) {
+                if (rigidBody.velocity.y <= 0) {
+                    yValue = -5;
+                } else if (rigidBody.velocity.y > 0) {
+                    yValue = 5;
+                }
+                Vector2 minimumVelocity = new Vector2(0, yValue);
+                rigidBody.AddForce(minimumVelocity);
+            }
         }
         previousVelocity = rigidBody.velocity;
     }
@@ -42,17 +53,17 @@ public class Ball : MonoBehaviour
         Renderer visual = GetComponent<Renderer>();
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-            inPlay = true;
             float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -200);      
-            visual.enabled = true;
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12,12), 10);
             rigidBody.AddForce(direction);
+            inPlay = true;
+            visual.enabled = true;
         }
     }
 
     private Tuple<float, float> generateBallPosition()
     {
-        randomXCoord = UnityEngine.Random.Range(1f, 9f);
+        randomXCoord = UnityEngine.Random.Range(5f, 10f);
         randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
         return new Tuple<float, float>(randomXCoord, randomYCoord);
     }

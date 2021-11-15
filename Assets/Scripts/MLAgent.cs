@@ -16,6 +16,7 @@ public class MLAgent : Agent
 	public int previousLives = 5000;
 	Vector3 previousBallLocation;
 	Vector3 changeInBallLocation;
+	float previousPaddlePosition;
 
 	// this will be passed as an observation to the ML Agent
 	// 1's signify that the brick hasn't been hit, 0's mean it has
@@ -34,6 +35,11 @@ public class MLAgent : Agent
 
 	void Update()
 	{
+		if (transform.position.x != previousPaddlePosition) {
+			Debug.Log("-1 reward for moving");
+			SetReward(-1f);
+		}
+
 		if (transform.position.x < leftScreenEdge)
 			transform.position = new Vector3(leftScreenEdge, transform.position.y, 0);
 		if (transform.position.x > rightScreenEdge)
@@ -55,13 +61,7 @@ public class MLAgent : Agent
 			previousLives = MLGameManager.instance.lives;
 			EndEpisode();
 		}
-
-	}
-
-	public override void OnEpisodeBegin()
-	{
-		transform.localPosition = new Vector3(1.7853284f, 0.6854997f, 0f);
-		target.transform.localPosition = new Vector3(Random.Range(1f, 9f), Random.Range(3.25f, 3.75f), 0);
+		previousPaddlePosition = transform.position.x;
 	}
 
 	public override void CollectObservations(VectorSensor sensor)
