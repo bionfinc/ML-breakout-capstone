@@ -36,11 +36,11 @@ public class Ball : MonoBehaviour
         }
 
         if (inPlay) {
-            int yValue = 5;
+            int yValue;
             if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5) {
-                if (rigidBody.velocity.y <= 0) {
+                if (rigidBody.velocity.y < 0) {
                     yValue = -5;
-                } else if (rigidBody.velocity.y > 0) {
+                } else {
                     yValue = 5;
                 }
                 Vector2 minimumVelocity = new Vector2(0, yValue);
