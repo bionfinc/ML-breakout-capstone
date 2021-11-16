@@ -33,7 +33,9 @@ public class Ball : MonoBehaviour
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
             LaunchBall();
-        } else {
+        }
+
+        if (inPlay) {
             int yValue = 5;
             if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5) {
                 if (rigidBody.velocity.y <= 0) {
