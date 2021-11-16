@@ -32,13 +32,13 @@ public class MLBall : MonoBehaviour
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
             LaunchBall();
-        } else {
-            int yValue = 5;
-            if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5) {
-                if (rigidBody.velocity.y <= 0) {
-                    yValue = -5;
-                } else if (rigidBody.velocity.y > 0) {
-                    yValue = 5;
+         } else {
+            float yValue;
+            if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1) {
+                if (rigidBody.velocity.y < 0) {
+                    yValue = -.2f;
+                } else {
+                    yValue = .2f;
                 }
                 Vector2 minimumVelocity = new Vector2(0, yValue);
                 rigidBody.AddForce(minimumVelocity);
@@ -51,7 +51,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -10);
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -5);
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
