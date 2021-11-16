@@ -36,7 +36,7 @@ public class MLAgent : Agent
 	void Update()
 	{
 		if (transform.position.x != previousPaddlePosition) {
-			Debug.Log("-1 reward for moving");
+			//Debug.Log("-1 reward for moving");
 			SetReward(-1f);
 		}
 
