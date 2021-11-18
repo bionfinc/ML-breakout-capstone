@@ -19,6 +19,7 @@ TagManager:
   - Goal
   - Non-goal
   - MLBall
+  - GameOverHeader
   layers:
   - Default
   - TransparentFX
