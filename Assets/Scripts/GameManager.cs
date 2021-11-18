@@ -13,16 +13,17 @@ public class GameManager : MonoBehaviour
     public Text scoresText;
     public Text livesText;
     public int lives;
+    Scene scene;
+    public bool over;
 
 
     private void Start()
     {
         lives = 3;
-        // scoresText = GameObject.FindGameObjectWithTag("ScoresText").GetComponent<UnityEngine.UI.Text>();
         scoresText.text = "Score: " + score.ToString();
-        // livesText = GameObject.FindGameObjectWithTag("LivesText").GetComponent<UnityEngine.UI.Text>();
         livesText.text = "Lives: " + lives.ToString();
-
+        scene = SceneManager.GetActiveScene();
+        over = false;
     }
 
     private void Awake()
@@ -68,16 +69,42 @@ public class GameManager : MonoBehaviour
 
     public void PlayerWin()
     {
-        DestroyCurrentGame();
-        // change scene to win scene
-        SceneManager.LoadScene("WinScreen");
+        // check if we're in 1 player or 2 player mode
+        if (scene.name == "TwoPlayerScreen")
+        {
+            over = true;
+            GameObject paddleObject = GameObject.Find("Paddle");
+            Destroy(paddleObject);
+            Pause.instance.ShowWinnerPopUp();
+        }
+        else
+        {
+            DestroyCurrentGame();
+            SceneManager.LoadScene("WinScreen");
+        }
     }
 
     public void PlayerDeath()
     {
-        DestroyCurrentGame();
-        // change scene to lose scene
-        SceneManager.LoadScene("GameOverScreen");
+        // check if we're in 1 player or 2 player mode
+        if (scene.name == "TwoPlayerScreen")
+        {
+            over = true;
+            GameObject paddleObject = GameObject.Find("Paddle");
+            Destroy(paddleObject);
+
+            // check if the other player has finished their game
+            if (MLGameManager.instance.over)
+            {
+                Pause.instance.ShowEndPopUp();
+            }
+        }
+        else
+        {
+            DestroyCurrentGame();
+            SceneManager.LoadScene("GameOverScreen");
+        }
+
     }
 
     public void DestroyCurrentGame()
