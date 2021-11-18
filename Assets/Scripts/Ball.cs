@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 
@@ -14,10 +15,16 @@ public class Ball : MonoBehaviour
     public bool inPlay;
     public float randomXCoord;
     public float randomYCoord;
+    public float randXStart;
+    public float randXEnd;
+    public float randYStart;
+    public float randYEnd;
     public GameManager gm;
+    private Scene scene;
 
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         Renderer visual = GetComponent<Renderer>();
 
         rigidBody = GetComponent<Rigidbody2D>();
@@ -28,26 +35,12 @@ public class Ball : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !inPlay)
-        {
-            Tuple<float, float> ballposition = generateBallPosition();
-            transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
-            LaunchBall();
-        }
-
-        if (inPlay) {
-            int yValue;
-            if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5) {
-                if (rigidBody.velocity.y < 0) {
-                    yValue = -5;
-                } else {
-                    yValue = 5;
-                }
-                Vector2 minimumVelocity = new Vector2(0, yValue);
-                rigidBody.AddForce(minimumVelocity);
-            }
-        }
-        previousVelocity = rigidBody.velocity;
+        if (GameManager.instance.over)
+            return;
+        if (scene.name == "TwoPlayerScreen")
+            TwoPlayerUpdate();
+        else
+            RegularUpdate();
     }
 
     private void LaunchBall()
@@ -63,11 +56,30 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void AutomaticLaunch()
+    {
+        Renderer visual = GetComponent<Renderer>();
+        float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -15);
+        rigidBody.AddForce(direction);
+        inPlay = true;
+        visual.enabled = true;
+    }
+
     private Tuple<float, float> generateBallPosition()
     {
-        randomXCoord = UnityEngine.Random.Range(5f, 10f);
-        randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
-        return new Tuple<float, float>(randomXCoord, randomYCoord);
+        if (scene.name == "TwoPlayerScreen")
+		{
+            randomXCoord = UnityEngine.Random.Range(randXStart, randXEnd);
+            randomYCoord = UnityEngine.Random.Range(randYStart, randYEnd);
+            return new Tuple<float, float>(randomXCoord, randomYCoord);
+        }
+        else
+		{
+            randomXCoord = UnityEngine.Random.Range(5f, 10f);
+            randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
+            return new Tuple<float, float>(randomXCoord, randomYCoord);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -115,4 +127,60 @@ public class Ball : MonoBehaviour
         }
     }
 
+    void TwoPlayerUpdate()
+    {
+        if (!inPlay)
+        {
+            Tuple<float, float> ballposition = generateBallPosition();
+            transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
+            AutomaticLaunch();
+        }
+        else
+        {
+            float yValue;
+            if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1)
+            {
+                if (rigidBody.velocity.y < 0)
+                {
+                    yValue = -.2f;
+                }
+                else
+                {
+                    yValue = .2f;
+                }
+                Vector2 minimumVelocity = new Vector2(0, yValue);
+                rigidBody.AddForce(minimumVelocity);
+            }
+        }
+        previousVelocity = rigidBody.velocity;
+    }
+
+    void RegularUpdate()
+    {
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && !inPlay)
+        {
+            Tuple<float, float> ballposition = generateBallPosition();
+            transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
+            LaunchBall();
+        }
+
+        if (inPlay)
+        {
+            int yValue;
+            if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5)
+            {
+                if (rigidBody.velocity.y < 0)
+                {
+                    yValue = -5;
+                }
+                else
+                {
+                    yValue = 5;
+                }
+                Vector2 minimumVelocity = new Vector2(0, yValue);
+                rigidBody.AddForce(minimumVelocity);
+            }
+        }
+        previousVelocity = rigidBody.velocity;
+    }
 }

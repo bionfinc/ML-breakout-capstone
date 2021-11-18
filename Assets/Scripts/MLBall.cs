@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 
 public class MLBall : MonoBehaviour
@@ -15,9 +16,11 @@ public class MLBall : MonoBehaviour
     public float randomXCoord;
     public float randomYCoord;
     public MLGameManager gm;
+    private Scene scene;
 
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         Renderer visual = GetComponent<Renderer>();
         rigidBody = GetComponent<Rigidbody2D>();
         brickReference = new Brick();
@@ -51,7 +54,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -5);
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -5);    
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -59,9 +62,19 @@ public class MLBall : MonoBehaviour
 
     private Tuple<float, float> generateBallPosition()
     {
-        randomXCoord = UnityEngine.Random.Range(2f, 9f);
-        randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
-        return new Tuple<float, float>(randomXCoord, randomYCoord);
+        if (scene.name == "TwoPlayerScreen")
+		{
+            randomXCoord = UnityEngine.Random.Range(-1.5f, -6.5f);
+            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);
+            return new Tuple<float, float>(randomXCoord, randomYCoord);
+        }
+		else
+		{
+            randomXCoord = UnityEngine.Random.Range(2f, 9f);
+            randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
+            return new Tuple<float, float>(randomXCoord, randomYCoord);
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -14,6 +14,8 @@ public class MLGameManager : MonoBehaviour
     public Text livesText;
     public int lives;
     public int bricksBroken = 0;
+    Scene scene;
+    public bool over;
 
 
     private void Start()
@@ -21,7 +23,8 @@ public class MLGameManager : MonoBehaviour
         lives = 100000;
         scoresText.text = "Score: " + score.ToString();
         livesText.text = "Lives: " + lives.ToString();
-
+        scene = SceneManager.GetActiveScene();
+        over = false;
     }
 
     private void Awake()
@@ -57,7 +60,6 @@ public class MLGameManager : MonoBehaviour
         // check if agent has lost all their lives
         if (lives < 1)
             PlayerDeath();
-        // call new scene
     }
 
     public void UpdateDisplay()
@@ -67,16 +69,59 @@ public class MLGameManager : MonoBehaviour
 
     public void PlayerWin()
     {
-        DestroyCurrentGame();
-        // change scene to win scene
-        // SceneManager.LoadScene("WinScene");
+        // check if we're in 1 player or 2 player mode
+        if (scene.name == "TwoPlayerScreen")
+        {
+            // activate the game over screen, indicating ml agent won
+            over = true;
+            destroyBallAndPaddle();
+            Pause.instance.ShowEndPopUp();
+        }
+        else if (scene.name == "MLAgentScreen")
+        {
+            over = true;
+            destroyBallAndPaddle();
+            Pause.instance.ShowWinnerPopUp();
+        }
+        else
+        {
+            destroyBallAndPaddle();
+            Pause.instance.ShowWinnerPopUp();
+        }
     }
 
     public void PlayerDeath()
     {
-        DestroyCurrentGame();
-        // change scene to lose scene
-        SceneManager.LoadScene("GameOverScreen");
+        // check if we're in 1 player or 2 player mode
+        if (scene.name == "TwoPlayerScreen")
+        {
+            over = true;
+            destroyBallAndPaddle();
+
+            // check if the other player has finished their game
+            if (GameManager.instance.over)
+                Pause.instance.ShowEndPopUp();
+        }
+        else if (scene.name == "MLAgentScreen")
+		{
+            over = true;
+            destroyBallAndPaddle();
+            Pause.instance.ShowEndPopUp();
+        }
+        else
+        {
+            DestroyCurrentGame();
+            SceneManager.LoadScene("GameOverScreen");
+        }
+
+    }
+
+    public void destroyBallAndPaddle()
+	{
+        GameObject paddleObject = GameObject.Find("Agent (Paddle)");
+        GameObject ballObject = GameObject.Find("MLBall");
+        Destroy(paddleObject);
+        Destroy(ballObject);
     }
 
     public void DestroyCurrentGame()

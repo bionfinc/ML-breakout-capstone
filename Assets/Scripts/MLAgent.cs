@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using UnityEngine.SceneManagement;
 
 public class MLAgent : Agent
 {
@@ -17,6 +18,7 @@ public class MLAgent : Agent
 	Vector3 previousBallLocation;
 	Vector3 changeInBallLocation;
 	float previousPaddlePosition;
+	private Scene scene;
 
 	// this will be passed as an observation to the ML Agent
 	// 1's signify that the brick hasn't been hit, 0's mean it has
@@ -31,19 +33,22 @@ public class MLAgent : Agent
 	void Awake()
 	{
 		instance = this;
+		scene = SceneManager.GetActiveScene();
 	}
 
 	void Update()
 	{
+		/*
 		if (transform.position.x != previousPaddlePosition) {
 			//Debug.Log("-1 reward for moving");
 			SetReward(-1f);
 		}
+		*/
 
-		if (transform.position.x < leftScreenEdge)
-			transform.position = new Vector3(leftScreenEdge, transform.position.y, 0);
-		if (transform.position.x > rightScreenEdge)
-			transform.position = new Vector3(rightScreenEdge, transform.position.y, 0);
+		if (transform.localPosition.x < leftScreenEdge)
+			transform.localPosition = new Vector3(leftScreenEdge, transform.localPosition.y, 0);
+		if (transform.localPosition.x > rightScreenEdge)
+			transform.localPosition = new Vector3(rightScreenEdge, transform.localPosition.y, 0);
 
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
@@ -62,6 +67,20 @@ public class MLAgent : Agent
 			EndEpisode();
 		}
 		previousPaddlePosition = transform.position.x;
+	}
+
+	public override void OnEpisodeBegin()
+	{
+		if (scene.name == "TwoPlayerScreen")
+		{
+			transform.localPosition = new Vector3(4f, 0.6854997f, 0f);
+			target.transform.localPosition = new Vector3(Random.Range(-9f, -5f), Random.Range(0.2f, 1f), 0);
+		}
+		else
+		{
+			transform.localPosition = new Vector3(4f, 0.6854997f, 0f);
+			target.transform.localPosition = new Vector3(Random.Range(1f, 9f), Random.Range(3.25f, 3.75f), 0);
+		}
 	}
 
 	public override void CollectObservations(VectorSensor sensor)
@@ -105,7 +124,7 @@ public class MLAgent : Agent
 				break;
 		}
 
-		transform.position += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
+		transform.localPosition += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)
@@ -118,11 +137,13 @@ public class MLAgent : Agent
 		}
 	}
 
+	/*
 	public override void Heuristic(in ActionBuffers actionsOut)
 	{
 		ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
 		continuousActions[0] = Input.GetAxisRaw("Horizontal");
 	}
+	*/
 
 	public void UpdateCoords(int x, int y)
 	{

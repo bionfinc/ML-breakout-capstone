@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: bac6bb02ff41b1441aa217f38c7c4aa0
+  - enabled: 1
+    path: Assets/Scenes/MLAgentScreen.unity
+    guid: 4d700931490ba6f45bd38dec313e3141
+  - enabled: 1
+    path: Assets/Scenes/TwoPlayerScreen.unity
+    guid: edc6fae9f67f44e49af65dce5fb9aaab
   m_configObjects: {}

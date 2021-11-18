@@ -1,8 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour
+public class TwoPlayerPaddle : MonoBehaviour
 {
 
     public float speed = 15;
@@ -18,12 +18,9 @@ public class Paddle : MonoBehaviour
     void WhenMouseIsMoving()
     {
         Camera cam = Camera.main;
-        float height = 2f * cam.orthographicSize;
-        float screenWidth = height * cam.aspect;
-        float mousePosition = Input.mousePosition.x / Screen.width * screenWidth;
-        Vector2 paddlePosition = new Vector2(mousePosition, transform.position.y);
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 paddlePosition = new Vector3(mousePosition.x, transform.position.y, 0);
         transform.position = paddlePosition;
-
     }
 
     void WhenMouseIsNotMoving()
@@ -49,9 +46,9 @@ public class Paddle : MonoBehaviour
             WhenMouseIsNotMoving();
         }
         if (transform.localPosition.x < leftScreenEdge)
-            transform.localPosition = new Vector3(leftScreenEdge, transform.position.y, 0);
+            transform.localPosition = new Vector3(leftScreenEdge, 0.9f, 0);
         if (transform.localPosition.x > rightScreenEdge)
-            transform.localPosition = new Vector3(rightScreenEdge, transform.position.y, 0); 
+            transform.localPosition = new Vector3(rightScreenEdge, 0.9f, 0);
     }
 
 }
