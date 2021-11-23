@@ -9947,7 +9947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 65
+    VectorObservationSize: 67
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -9956,7 +9956,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: c0fb657b91efeec4d94cf340dddb33e6, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: MLAgent

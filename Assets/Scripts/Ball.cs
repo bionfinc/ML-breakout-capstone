@@ -26,7 +26,6 @@ public class Ball : MonoBehaviour
     {
         scene = SceneManager.GetActiveScene();
         Renderer visual = GetComponent<Renderer>();
-
         rigidBody = GetComponent<Rigidbody2D>();
         brickReference = new Brick();
         visual.enabled = !visual.enabled;
@@ -49,7 +48,7 @@ public class Ball : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -15);
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -15f); 
             rigidBody.AddForce(direction);
             inPlay = true;
             visual.enabled = true;
@@ -60,7 +59,7 @@ public class Ball : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300, 300), -15);
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -120);       // made this slightly faster for 2 player mode
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -92,6 +91,9 @@ public class Ball : MonoBehaviour
             rigidBody.velocity = Vector2.zero;
             inPlay = false;
             visual.enabled = !visual.enabled;
+
+            // reset brick layers for speed
+            brickReference.resetLayers();
         }
     }
 
@@ -140,13 +142,13 @@ public class Ball : MonoBehaviour
             float yValue;
             if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1)
             {
-                if (rigidBody.velocity.y < 0)
+                if (rigidBody.velocity.y <= 0)
                 {
-                    yValue = -.2f;
+                    yValue = -1f;
                 }
                 else
                 {
-                    yValue = .2f;
+                    yValue = 1f;
                 }
                 Vector2 minimumVelocity = new Vector2(0, yValue);
                 rigidBody.AddForce(minimumVelocity);
@@ -166,7 +168,7 @@ public class Ball : MonoBehaviour
 
         if (inPlay)
         {
-            int yValue = -3;
+            int yValue = -1;
             if (rigidBody.velocity.magnitude < 5)
             {
                 Vector2 minimumVelocity = new Vector2(0, yValue);

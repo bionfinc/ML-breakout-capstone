@@ -25,4 +25,11 @@ public class Brick
 		false,
 		false
 	};
+
+	public void resetLayers()
+	{
+		for (int i = 0; i < 5; i++)
+			layerReached[i] = false;
+	}
+
 }
