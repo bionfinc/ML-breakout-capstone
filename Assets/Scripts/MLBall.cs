@@ -54,7 +54,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -5);    
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -15);    // made this slightly faster for testing
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;

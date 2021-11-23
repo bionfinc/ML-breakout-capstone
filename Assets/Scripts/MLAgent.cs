@@ -30,6 +30,7 @@ public class MLAgent : Agent
 		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
 	};
 
+
 	void Awake()
 	{
 		instance = this;
@@ -39,7 +40,7 @@ public class MLAgent : Agent
 	void Update()
 	{
 		/*
-		if (transform.position.x != previousPaddlePosition) {
+		if (transform.position.x != previousPaddlePosition) {           // commented this out for testing
 			//Debug.Log("-1 reward for moving");
 			SetReward(-1f);
 		}
@@ -53,8 +54,8 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			Debug.Log("+5 reward for breaking brick");
-			SetReward(+5f);
+			Debug.Log("+0.25 reward for breaking brick");
+			AddReward(+0.25f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
@@ -62,7 +63,7 @@ public class MLAgent : Agent
 		if (MLGameManager.instance.lives != previousLives)
 		{
 			Debug.Log("-1 reward for losing life");
-			SetReward(-1f);
+			AddReward(-1f);
 			previousLives = MLGameManager.instance.lives;
 			EndEpisode();
 		}
@@ -91,17 +92,20 @@ public class MLAgent : Agent
 		sensor.AddObservation(transform.localPosition);
 		sensor.AddObservation(target.transform.localPosition);
 
-		// test: add observation for distance
+		// add observation for distance
 		sensor.AddObservation(Vector3.Distance(this.transform.localPosition, target.transform.localPosition));
 
-		// test: add observation for ball's direction
+		// add observation for ball's direction
 		sensor.AddObservation(changeInBallLocation);
+
+		// add observation for paddle distance to screen edges
+		sensor.AddObservation(transform.localPosition.x - leftScreenEdge);
+		sensor.AddObservation(rightScreenEdge - transform.localPosition.x);
 
 		// add observation for broken bricks
 		for (int row = 0; row < 5; row++)
 			for (int col = 0; col < 11; col++)
 				sensor.AddObservation(hitBricks[row, col]);
-
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
@@ -132,18 +136,10 @@ public class MLAgent : Agent
 		if (coll.gameObject.tag == "MLBall")
 		{
 			Debug.Log("+1 reward for hitting ball");
-			SetReward(+1f);
+			AddReward(+1f);
 			//EndEpisode();
 		}
 	}
-
-	/*
-	public override void Heuristic(in ActionBuffers actionsOut)
-	{
-		ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-		continuousActions[0] = Input.GetAxisRaw("Horizontal");
-	}
-	*/
 
 	public void UpdateCoords(int x, int y)
 	{

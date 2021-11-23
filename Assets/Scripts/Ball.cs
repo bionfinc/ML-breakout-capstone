@@ -49,7 +49,7 @@ public class Ball : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12,12), 10);
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -15);
             rigidBody.AddForce(direction);
             inPlay = true;
             visual.enabled = true;
@@ -166,19 +166,11 @@ public class Ball : MonoBehaviour
 
         if (inPlay)
         {
-            int yValue;
-            if (rigidBody.velocity.y > -5 && rigidBody.velocity.y < 5)
+            int yValue = -3;
+            if (rigidBody.velocity.magnitude < 5)
             {
-                if (rigidBody.velocity.y < 0)
-                {
-                    yValue = -5;
-                }
-                else
-                {
-                    yValue = 5;
-                }
                 Vector2 minimumVelocity = new Vector2(0, yValue);
-                rigidBody.AddForce(minimumVelocity);
+                rigidBody.velocity += minimumVelocity;
             }
         }
         previousVelocity = rigidBody.velocity;
