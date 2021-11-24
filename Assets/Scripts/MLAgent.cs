@@ -40,9 +40,9 @@ public class MLAgent : Agent
 	void Update()
 	{
 		/*
-		if (transform.position.x != previousPaddlePosition) {           // commented this out for testing
+		if (transform.position.x != previousPaddlePosition) {            // commented this out for testing
 			//Debug.Log("-1 reward for moving");
-			SetReward(-1f);
+			AddReward(-0.001f);
 		}
 		*/
 
@@ -102,10 +102,12 @@ public class MLAgent : Agent
 		sensor.AddObservation(transform.localPosition.x - leftScreenEdge);
 		sensor.AddObservation(rightScreenEdge - transform.localPosition.x);
 
+		/*
 		// add observation for broken bricks
 		for (int row = 0; row < 5; row++)
 			for (int col = 0; col < 11; col++)
 				sensor.AddObservation(hitBricks[row, col]);
+		*/
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
