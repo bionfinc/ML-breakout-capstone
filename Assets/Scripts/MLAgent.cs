@@ -19,6 +19,7 @@ public class MLAgent : Agent
 	Vector3 changeInBallLocation;
 	float previousPaddlePosition;
 	private Scene scene;
+	public float input;
 
 
 	void Awake()
@@ -44,7 +45,7 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			AddReward(+0.25f);
+			//AddReward(+0.25f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
@@ -53,7 +54,7 @@ public class MLAgent : Agent
 		{
 			AddReward(-1f);
 			previousLives = MLGameManager.instance.lives;
-			//EndEpisode();
+			EndEpisode();
 		}
 		previousPaddlePosition = transform.position.x;
 	}
@@ -62,8 +63,8 @@ public class MLAgent : Agent
 	{
 		if (scene.name == "TwoPlayerScreen")
 		{
-			transform.localPosition = new Vector3(4f, 0.6854997f, 0f);
-			target.transform.localPosition = new Vector3(Random.Range(-9f, -5f), Random.Range(0.2f, 1f), 0);
+			transform.localPosition = new Vector3(6f, 0.6854997f, 0f);
+			target.transform.localPosition = new Vector3(Random.Range(-9f, -5f), 1.3f, 0);
 		}
 		else
 		{

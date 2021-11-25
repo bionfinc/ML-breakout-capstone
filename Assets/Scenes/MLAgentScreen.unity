@@ -9867,8 +9867,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1701585640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0.68549967, z: 0}
-  m_LocalScale: {x: 1.0125, y: 1, z: 1}
+  m_LocalPosition: {x: 10.45, y: 0.68549967, z: 0}
+  m_LocalScale: {x: 1.75, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 750711413}
   m_RootOrder: 0
@@ -9930,10 +9930,11 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   target: {fileID: 280539023}
-  rightScreenEdge: 10.8
-  leftScreenEdge: -0.2
+  rightScreenEdge: 10.45
+  leftScreenEdge: 0.15
   previousBricksBroken: 0
   previousLives: 5000
+  input: 0
 --- !u!114 &1701585646
 MonoBehaviour:
   m_ObjectHideFlags: 0

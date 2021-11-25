@@ -701,6 +701,7 @@ MonoBehaviour:
   scoresText: {fileID: 1752099024}
   livesText: {fileID: 1965947771}
   lives: 5
+  over: 0
 --- !u!1001 &276596886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6403,8 +6404,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105562679}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 1.0404, z: 0}
-  m_LocalScale: {x: 1.0125, y: 1, z: 1}
+  m_LocalPosition: {x: 13.15, y: 1.0404, z: 0}
+  m_LocalScale: {x: 1.75, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 260108003}
   m_RootOrder: 0
@@ -6422,8 +6423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  rightScreenEdge: 13.5
-  leftScreenEdge: 2.5
+  rightScreenEdge: 13.15
+  leftScreenEdge: 2.85
 --- !u!60 &1105562684
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -8844,6 +8845,10 @@ MonoBehaviour:
   inPlay: 0
   randomXCoord: 0
   randomYCoord: 0
+  randXStart: 0
+  randXEnd: 0
+  randYStart: 0
+  randYEnd: 0
   gm: {fileID: 260108004}
 --- !u!114 &1858501107
 MonoBehaviour:
