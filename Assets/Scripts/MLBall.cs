@@ -35,7 +35,7 @@ public class MLBall : MonoBehaviour
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
             LaunchBall();
-         } else {
+        } else {
             float yValue;
             if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1) {
                 if (rigidBody.velocity.y <= 0) {
@@ -54,7 +54,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -120);    // made this slightly faster for testing
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -100);
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -65,7 +65,7 @@ public class MLBall : MonoBehaviour
         if (scene.name == "TwoPlayerScreen")
 		{
             randomXCoord = UnityEngine.Random.Range(-1.5f, -6.5f);
-            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);
+            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);                      
             return new Tuple<float, float>(randomXCoord, randomYCoord);
         }
 		else

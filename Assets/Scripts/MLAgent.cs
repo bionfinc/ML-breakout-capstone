@@ -54,18 +54,23 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			Debug.Log("+0.25 reward for breaking brick");
-			AddReward(+0.25f);
+			AddReward(+0.025f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
+		}
+
+		// check if agent has won the game
+		if (previousBricksBroken == 55)
+		{
+			AddReward(+1f);
+			EndEpisode();
 		}
 
 		// check if any lives have been lost
 		if (MLGameManager.instance.lives != previousLives)
 		{
-			Debug.Log("-1 reward for losing life");
-			AddReward(-1f);
+			AddReward(-0.1f);
 			previousLives = MLGameManager.instance.lives;
-			EndEpisode();
+			//EndEpisode();
 		}
 		previousPaddlePosition = transform.position.x;
 	}
@@ -102,12 +107,10 @@ public class MLAgent : Agent
 		sensor.AddObservation(transform.localPosition.x - leftScreenEdge);
 		sensor.AddObservation(rightScreenEdge - transform.localPosition.x);
 
-		/*
 		// add observation for broken bricks
 		for (int row = 0; row < 5; row++)
 			for (int col = 0; col < 11; col++)
 				sensor.AddObservation(hitBricks[row, col]);
-		*/
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
@@ -136,11 +139,7 @@ public class MLAgent : Agent
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "MLBall")
-		{
-			Debug.Log("+1 reward for hitting ball");
-			AddReward(+1f);
-			//EndEpisode();
-		}
+			AddReward(+0.1f);
 	}
 
 	public void UpdateCoords(int x, int y)
