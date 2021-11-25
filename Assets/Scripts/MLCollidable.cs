@@ -29,9 +29,6 @@ public class MLCollidable : MonoBehaviour
                 // update player's points
                 MLGameManager.instance.IncrementPoints(1);
 
-                // update the coords for the ML Agent
-                MLAgent.instance.UpdateCoords(xPos, yPos);
-
                 // remove the brick from the game
                 Destroy(gameObject);
             }

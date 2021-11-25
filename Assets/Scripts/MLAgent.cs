@@ -20,16 +20,6 @@ public class MLAgent : Agent
 	float previousPaddlePosition;
 	private Scene scene;
 
-	// this will be passed as an observation to the ML Agent
-	// 1's signify that the brick hasn't been hit, 0's mean it has
-	float[,] hitBricks = new float[,] {
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
-	};
-
 
 	void Awake()
 	{
@@ -58,17 +48,10 @@ public class MLAgent : Agent
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
-		// check if agent has won the game
-		if (previousBricksBroken == 55)
-		{
-			AddReward(+1f);
-			EndEpisode();
-		}
-
 		// check if any lives have been lost
 		if (MLGameManager.instance.lives != previousLives)
 		{
-			AddReward(-0.1f);
+			AddReward(-1f);
 			previousLives = MLGameManager.instance.lives;
 			//EndEpisode();
 		}
@@ -106,11 +89,6 @@ public class MLAgent : Agent
 		// add observation for paddle distance to screen edges
 		sensor.AddObservation(transform.localPosition.x - leftScreenEdge);
 		sensor.AddObservation(rightScreenEdge - transform.localPosition.x);
-
-		// add observation for broken bricks
-		for (int row = 0; row < 5; row++)
-			for (int col = 0; col < 11; col++)
-				sensor.AddObservation(hitBricks[row, col]);
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
@@ -140,10 +118,5 @@ public class MLAgent : Agent
 	{
 		if (coll.gameObject.tag == "MLBall")
 			AddReward(+0.1f);
-	}
-
-	public void UpdateCoords(int x, int y)
-	{
-		hitBricks[x, y] = 0;
 	}
 }
