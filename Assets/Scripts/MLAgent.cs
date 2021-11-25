@@ -44,7 +44,7 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			AddReward(+0.025f);
+			AddReward(+1f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
@@ -117,6 +117,6 @@ public class MLAgent : Agent
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "MLBall")
-			AddReward(+0.1f);
+			AddReward(+0.5f);
 	}
 }
