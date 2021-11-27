@@ -59,7 +59,7 @@ public class Ball : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -120);       // made this slightly faster for 2 player mode
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -120);  // made this slightly faster, was -100
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
