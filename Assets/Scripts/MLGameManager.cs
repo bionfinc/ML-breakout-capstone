@@ -72,11 +72,10 @@ public class MLGameManager : MonoBehaviour
         // check if we're in 1 player or 2 player mode
         if (scene.name == "TwoPlayerScreen")
         {
-            // activate the game over screen, indicating ml agent won
-            /*
+            // activate the game over screen, indicating ml agent won                     
             over = true;
             destroyBallAndPaddle();
-            Pause.instance.ShowEndPopUp();*/
+            Pause.instance.ShowEndPopUp();
         }
         else if (scene.name == "MLAgentScreen")
         {

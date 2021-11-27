@@ -112,7 +112,7 @@ public class MLAgent : Agent
 				break;
 		}
 
-		transform.localPosition += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
+		transform.localPosition += new Vector3(moveX * 2f, 0, 0) * Time.deltaTime * moveSpeed;   // added * 1.5f to make agent able to move faster
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)
