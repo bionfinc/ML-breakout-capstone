@@ -9225,7 +9225,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lives: 3
+  m_Text: 'Lives: 5
 
 '
 --- !u!222 &1965947772

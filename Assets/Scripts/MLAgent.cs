@@ -30,13 +30,6 @@ public class MLAgent : Agent
 
 	void Update()
 	{
-		/*
-		if (transform.position.x != previousPaddlePosition) {            // commented this out for testing
-			//Debug.Log("-1 reward for moving");
-			AddReward(-0.001f);
-		}
-		*/
-
 		if (transform.localPosition.x < leftScreenEdge)
 			transform.localPosition = new Vector3(leftScreenEdge, transform.localPosition.y, 0);
 		if (transform.localPosition.x > rightScreenEdge)
@@ -45,7 +38,7 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			//AddReward(+0.25f);
+			AddReward(+0.25f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 

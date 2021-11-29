@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        lives = 3;
+        lives = 5;
         scoresText.text = "Score: " + score.ToString();
         livesText.text = "Lives: " + lives.ToString();
         scene = SceneManager.GetActiveScene();

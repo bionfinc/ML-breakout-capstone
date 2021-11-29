@@ -20,7 +20,7 @@ public class MLGameManager : MonoBehaviour
 
     private void Start()
     {
-        lives = 100000;
+        lives = 5;
         scoresText.text = "Score: " + score.ToString();
         livesText.text = "Lives: " + lives.ToString();
         scene = SceneManager.GetActiveScene();

@@ -8727,7 +8727,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lives: 3
+  m_Text: 'Lives: 5
 
 '
 --- !u!222 &1012057440
@@ -9045,9 +9045,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 449bbc3fd140b7748b9015c8169d1991, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: MLAgent
   TeamId: 0
   m_UseChildSensors: 1
@@ -11963,7 +11963,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lives: 3
+  m_Text: 'Lives: 5
 
 '
 --- !u!222 &1475703496
