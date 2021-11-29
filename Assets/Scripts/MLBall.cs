@@ -35,13 +35,13 @@ public class MLBall : MonoBehaviour
             Tuple<float, float> ballposition = generateBallPosition();
             transform.position = new Vector3(ballposition.Item1, ballposition.Item2);
             LaunchBall();
-         } else {
+        } else {
             float yValue;
-            if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1) {
-                if (rigidBody.velocity.y < 0) {
-                    yValue = -.2f;
+            if (rigidBody.velocity.y > -1f && rigidBody.velocity.y < 1f) {
+                if (rigidBody.velocity.y <= 0) {
+                    yValue = -1f;                                                               
                 } else {
-                    yValue = .2f;
+                    yValue = 1f;
                 }
                 Vector2 minimumVelocity = new Vector2(0, yValue);
                 rigidBody.AddForce(minimumVelocity);
@@ -54,7 +54,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-12, 12), -5);    
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-100, 100), -120);         // was ((-100, 100), -120)
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -65,7 +65,7 @@ public class MLBall : MonoBehaviour
         if (scene.name == "TwoPlayerScreen")
 		{
             randomXCoord = UnityEngine.Random.Range(-1.5f, -6.5f);
-            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);
+            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);                      
             return new Tuple<float, float>(randomXCoord, randomYCoord);
         }
 		else
@@ -87,6 +87,9 @@ public class MLBall : MonoBehaviour
             rigidBody.velocity = Vector2.zero;
             inPlay = false;
             visual.enabled = !visual.enabled;
+
+            // reset brick layers for speed
+            brickReference.resetLayers();
         }
     }
 
@@ -117,7 +120,8 @@ public class MLBall : MonoBehaviour
         else
         {
             // increase the ball's speed by the layer's index multipled by 0.5
-            rigidBody.velocity = direction * (speed + (colorIndex * 0.05f));
+            rigidBody.velocity = direction * (speed + (colorIndex * 0.5f));
+
             brickReference.layerReached[colorIndex] = true;
         }
     }

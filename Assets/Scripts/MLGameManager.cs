@@ -20,7 +20,7 @@ public class MLGameManager : MonoBehaviour
 
     private void Start()
     {
-        lives = 100000;
+        lives = 5;
         scoresText.text = "Score: " + score.ToString();
         livesText.text = "Lives: " + lives.ToString();
         scene = SceneManager.GetActiveScene();
@@ -49,7 +49,7 @@ public class MLGameManager : MonoBehaviour
         // check if agent has won the game
         if (score == 55)
             PlayerWin();
-        // call next level or new scene
+
     }
 
     public void DecrementLives()
@@ -72,7 +72,7 @@ public class MLGameManager : MonoBehaviour
         // check if we're in 1 player or 2 player mode
         if (scene.name == "TwoPlayerScreen")
         {
-            // activate the game over screen, indicating ml agent won
+            // activate the game over screen, indicating ml agent won                     
             over = true;
             destroyBallAndPaddle();
             Pause.instance.ShowEndPopUp();
@@ -127,6 +127,28 @@ public class MLGameManager : MonoBehaviour
     public void DestroyCurrentGame()
     {
         Destroy(gameObject);
+    }
+
+    public void resetGame()
+	{
+        GameObject bricks = this.gameObject.transform.GetChild(1).gameObject;
+
+        // go through each row of bricks and reset them
+        for (int i = 0; i < 5; i++)
+		{
+            GameObject brickRow = bricks.gameObject.transform.GetChild(i).gameObject;
+
+            // go through each brick in the row
+            for (int j = 0; j < 11; j++)
+			{
+                GameObject brick = brickRow.gameObject.transform.GetChild(i).gameObject;
+                brick.SetActive(true);
+                brick.GetComponent<MLCollidable>().hasBeenHit = false;
+
+            }
+
+		}
+
     }
 
 }

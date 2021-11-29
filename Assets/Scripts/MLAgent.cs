@@ -19,16 +19,8 @@ public class MLAgent : Agent
 	Vector3 changeInBallLocation;
 	float previousPaddlePosition;
 	private Scene scene;
+	public float input;
 
-	// this will be passed as an observation to the ML Agent
-	// 1's signify that the brick hasn't been hit, 0's mean it has
-	float[,] hitBricks = new float[,] {
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f},
-		{ 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
-	};
 
 	void Awake()
 	{
@@ -38,13 +30,6 @@ public class MLAgent : Agent
 
 	void Update()
 	{
-		/*
-		if (transform.position.x != previousPaddlePosition) {
-			//Debug.Log("-1 reward for moving");
-			SetReward(-1f);
-		}
-		*/
-
 		if (transform.localPosition.x < leftScreenEdge)
 			transform.localPosition = new Vector3(leftScreenEdge, transform.localPosition.y, 0);
 		if (transform.localPosition.x > rightScreenEdge)
@@ -53,16 +38,14 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			Debug.Log("+5 reward for breaking brick");
-			SetReward(+5f);
+			AddReward(+0.25f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
 		// check if any lives have been lost
 		if (MLGameManager.instance.lives != previousLives)
 		{
-			Debug.Log("-1 reward for losing life");
-			SetReward(-1f);
+			AddReward(-1f);
 			previousLives = MLGameManager.instance.lives;
 			EndEpisode();
 		}
@@ -73,8 +56,8 @@ public class MLAgent : Agent
 	{
 		if (scene.name == "TwoPlayerScreen")
 		{
-			transform.localPosition = new Vector3(4f, 0.6854997f, 0f);
-			target.transform.localPosition = new Vector3(Random.Range(-9f, -5f), Random.Range(0.2f, 1f), 0);
+			transform.localPosition = new Vector3(6f, 0.6854997f, 0f);
+			target.transform.localPosition = new Vector3(Random.Range(-9f, -5f), 1.3f, 0);
 		}
 		else
 		{
@@ -91,17 +74,15 @@ public class MLAgent : Agent
 		sensor.AddObservation(transform.localPosition);
 		sensor.AddObservation(target.transform.localPosition);
 
-		// test: add observation for distance
+		// add observation for distance
 		sensor.AddObservation(Vector3.Distance(this.transform.localPosition, target.transform.localPosition));
 
-		// test: add observation for ball's direction
+		// add observation for ball's direction
 		sensor.AddObservation(changeInBallLocation);
 
-		// add observation for broken bricks
-		for (int row = 0; row < 5; row++)
-			for (int col = 0; col < 11; col++)
-				sensor.AddObservation(hitBricks[row, col]);
-
+		// add observation for paddle distance to screen edges
+		sensor.AddObservation(transform.localPosition.x - leftScreenEdge);
+		sensor.AddObservation(rightScreenEdge - transform.localPosition.x);
 	}
 
 	public override void OnActionReceived(ActionBuffers actions)
@@ -124,29 +105,12 @@ public class MLAgent : Agent
 				break;
 		}
 
-		transform.localPosition += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
+		transform.localPosition += new Vector3(moveX * 2f, 0, 0) * Time.deltaTime * moveSpeed;   // added * 1.5f to make agent able to move faster
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "MLBall")
-		{
-			Debug.Log("+1 reward for hitting ball");
-			SetReward(+1f);
-			//EndEpisode();
-		}
-	}
-
-	/*
-	public override void Heuristic(in ActionBuffers actionsOut)
-	{
-		ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-		continuousActions[0] = Input.GetAxisRaw("Horizontal");
-	}
-	*/
-
-	public void UpdateCoords(int x, int y)
-	{
-		hitBricks[x, y] = 0;
+			AddReward(+1.5f);
 	}
 }
