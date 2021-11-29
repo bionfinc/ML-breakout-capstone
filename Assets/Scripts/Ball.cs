@@ -169,6 +169,7 @@ public class Ball : MonoBehaviour
         if (inPlay)
         {
             int yValue = -1;
+
             if (rigidBody.velocity.magnitude < 5)
             {
                 Vector2 minimumVelocity = new Vector2(0, yValue);
