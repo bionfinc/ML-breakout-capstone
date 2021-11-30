@@ -54,7 +54,7 @@ public class MLBall : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-100, 100), -120);         // was ((-100, 100), -120)
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-100, 100), 108);         // was ((-100, 100), -120)
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -65,7 +65,7 @@ public class MLBall : MonoBehaviour
         if (scene.name == "TwoPlayerScreen")
 		{
             randomXCoord = UnityEngine.Random.Range(-1.5f, -6.5f);
-            randomYCoord = UnityEngine.Random.Range(0f, 0.5f);                      
+            randomYCoord = -0.9f;                      
             return new Tuple<float, float>(randomXCoord, randomYCoord);
         }
 		else
@@ -120,7 +120,7 @@ public class MLBall : MonoBehaviour
         else
         {
             // increase the ball's speed by the layer's index multipled by 0.5
-            rigidBody.velocity = direction * (speed + (colorIndex * 0.5f));
+            rigidBody.velocity = direction * (speed + (colorIndex * 0.2f));
 
             brickReference.layerReached[colorIndex] = true;
         }

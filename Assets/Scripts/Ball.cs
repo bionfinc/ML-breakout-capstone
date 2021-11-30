@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), -15f); 
+            Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-300,300), 108f); 
             rigidBody.AddForce(direction);
             inPlay = true;
             visual.enabled = true;
@@ -59,7 +59,7 @@ public class Ball : MonoBehaviour
     {
         Renderer visual = GetComponent<Renderer>();
         float x = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
-        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), -120);  // made this slightly faster, was -100
+        Vector2 direction = new Vector2((float)UnityEngine.Random.Range(-200, 200), 105);  // made this slightly faster, was -100
         rigidBody.AddForce(direction);
         inPlay = true;
         visual.enabled = true;
@@ -70,13 +70,13 @@ public class Ball : MonoBehaviour
         if (scene.name == "TwoPlayerScreen")
 		{
             randomXCoord = UnityEngine.Random.Range(randXStart, randXEnd);
-            randomYCoord = UnityEngine.Random.Range(randYStart, randYEnd);
+            randomYCoord = -0.9f;
             return new Tuple<float, float>(randomXCoord, randomYCoord);
         }
         else
 		{
             randomXCoord = UnityEngine.Random.Range(5f, 10f);
-            randomYCoord = UnityEngine.Random.Range(3.25f, 3.75f);
+            randomYCoord = 1.5f;
             return new Tuple<float, float>(randomXCoord, randomYCoord);
         }
     }
@@ -124,7 +124,7 @@ public class Ball : MonoBehaviour
         else
         {
             // increase the ball's speed by the layer's index multipled by 0.5
-            rigidBody.velocity = direction * (speed + (colorIndex * 0.5f));
+            rigidBody.velocity = direction * (speed + (colorIndex * 0.2f));
             brickReference.layerReached[colorIndex] = true;
         }
     }
@@ -140,7 +140,7 @@ public class Ball : MonoBehaviour
         else
         {
             float yValue;
-            if (rigidBody.velocity.y > -.1 && rigidBody.velocity.y < .1)
+            if (rigidBody.velocity.y > -1 && rigidBody.velocity.y < 1)
             {
                 if (rigidBody.velocity.y <= 0)
                 {
@@ -168,8 +168,7 @@ public class Ball : MonoBehaviour
 
         if (inPlay)
         {
-            int yValue = -1;
-
+            int yValue = 1;
             if (rigidBody.velocity.magnitude < 5)
             {
                 Vector2 minimumVelocity = new Vector2(0, yValue);

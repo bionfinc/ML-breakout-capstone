@@ -14,7 +14,7 @@ public class MLAgent : Agent
 	public float rightScreenEdge;
 	public float leftScreenEdge;
 	public int previousBricksBroken = 0;
-	public int previousLives = 5000;
+	public int previousLives = 5;
 	Vector3 previousBallLocation;
 	Vector3 changeInBallLocation;
 	float previousPaddlePosition;
@@ -38,7 +38,7 @@ public class MLAgent : Agent
 		// check if any bricks have been broken
 		if (MLGameManager.instance.bricksBroken != previousBricksBroken)
 		{
-			AddReward(+0.25f);
+			AddReward(+2.25f);
 			previousBricksBroken = MLGameManager.instance.bricksBroken;
 		}
 
