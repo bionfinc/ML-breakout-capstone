@@ -46,9 +46,9 @@ public class TwoPlayerPaddle : MonoBehaviour
             WhenMouseIsNotMoving();
         }
         if (transform.localPosition.x < leftScreenEdge)
-            transform.localPosition = new Vector3(leftScreenEdge, 0.9f, 0);
+            transform.localPosition = new Vector3(leftScreenEdge, 0.68f, 0);
         if (transform.localPosition.x > rightScreenEdge)
-            transform.localPosition = new Vector3(rightScreenEdge, 0.9f, 0);
+            transform.localPosition = new Vector3(rightScreenEdge, 0.68f, 0);
     }
 
 }
