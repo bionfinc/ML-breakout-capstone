@@ -6,7 +6,7 @@ A replica of Atari’s Breakout and train a neural net with reinforcement learni
 
 ## Usage 
 
-Webgl - https://zachmarcus7.github.io/midpoint/Builds/index.html
+Webgl - https://bionfinc.github.io/ML-breakout-capstone/Builds/Final%20Build/index.html
 
 ## Contributing 
 
